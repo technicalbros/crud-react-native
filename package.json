@@ -1,6 +1,6 @@
 {
   "name": "@crud/react-native",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "React Native presets for @crud/core",
   "scripts": {
     "watch": "tsc --watch"
