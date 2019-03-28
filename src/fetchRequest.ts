@@ -71,7 +71,7 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
             } else {
                 throw {
                     error: res,
-                    message: `${res.status} : ${res.statusText}`
+                    message: `${res.status} : ${res.statusText || 'Server Error'}`
                 }
             }
 
