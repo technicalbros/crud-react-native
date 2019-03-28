@@ -20,6 +20,8 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
             baseUrl = "",
             prefix = "",
             suffix = "",
+            redirectTo,
+            reload: reloadPage,
             extension = "",
             showProgress = true,
             checkDataType = true,
@@ -38,7 +40,7 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
         let _url = baseUrl + prefix + url + suffix + extension;
 
         if (callbacks.transformParams) {
-            data = this.call("transformParams", [data])
+            data = await this.call("transformParams", [data])
         }
 
         if (!_.isEmpty(data)) {
@@ -75,7 +77,7 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
                 }
             }
 
-            let response: { type: "success" | "error", message: string };
+            let response: { type: "success" | "error", message: string }
 
             try {
                 response = JSON.parse(responseText);
@@ -84,7 +86,7 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
             }
 
             if (callbacks.transformResponse) {
-                this.call("transformResponse", [response])
+                response = await this.call("transformResponse", [response])
             }
 
             if (method.toLowerCase() === 'get') {
@@ -96,10 +98,16 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
                     message: response.message
                 });
 
+                if (redirectTo) {
+                    this.redirect(redirectTo);
+                } else if (reloadPage) {
+                    this.reload();
+                }
+
                 if (!checkDataType || this.call("checkSuccess", [response])) {
                     return response;
                 } else {
-                    throw response;
+                    throw response || {message: "Empty Response"};
                 }
             }
         } catch (error) {

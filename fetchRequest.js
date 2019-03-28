@@ -62,17 +62,20 @@ function fetchRequest(config) {
     var callbacks = config.callbacks;
     callbacks.sendRequest = function (options) {
         return __awaiter(this, void 0, void 0, function () {
-            var config, data, url, _a, method, _b, baseUrl, _c, prefix, _d, suffix, _e, extension, _f, showProgress, _g, checkDataType, _h, notify, ajaxOptions, callbacks, requestOptions, _url, params, responseText, res, response, error_1;
+            var config, data, url, _a, method, _b, baseUrl, _c, prefix, _d, suffix, redirectTo, reloadPage, _e, extension, _f, showProgress, _g, checkDataType, _h, notify, ajaxOptions, callbacks, requestOptions, _url, params, responseText, res, response, error_1;
             return __generator(this, function (_j) {
                 switch (_j.label) {
                     case 0:
                         config = __assign({}, this.defaultConfig, options);
-                        data = config.data, url = config.url, _a = config.method, method = _a === void 0 ? "get" : _a, _b = config.baseUrl, baseUrl = _b === void 0 ? "" : _b, _c = config.prefix, prefix = _c === void 0 ? "" : _c, _d = config.suffix, suffix = _d === void 0 ? "" : _d, _e = config.extension, extension = _e === void 0 ? "" : _e, _f = config.showProgress, showProgress = _f === void 0 ? true : _f, _g = config.checkDataType, checkDataType = _g === void 0 ? true : _g, _h = config.notify, notify = _h === void 0 ? true : _h, ajaxOptions = config.ajaxOptions, callbacks = config.callbacks;
+                        data = config.data, url = config.url, _a = config.method, method = _a === void 0 ? "get" : _a, _b = config.baseUrl, baseUrl = _b === void 0 ? "" : _b, _c = config.prefix, prefix = _c === void 0 ? "" : _c, _d = config.suffix, suffix = _d === void 0 ? "" : _d, redirectTo = config.redirectTo, reloadPage = config.reload, _e = config.extension, extension = _e === void 0 ? "" : _e, _f = config.showProgress, showProgress = _f === void 0 ? true : _f, _g = config.checkDataType, checkDataType = _g === void 0 ? true : _g, _h = config.notify, notify = _h === void 0 ? true : _h, ajaxOptions = config.ajaxOptions, callbacks = config.callbacks;
                         requestOptions = __assign({}, ajaxOptions, { method: method, credentials: "include" });
                         _url = baseUrl + prefix + url + suffix + extension;
-                        if (callbacks.transformParams) {
-                            data = this.call("transformParams", [data]);
-                        }
+                        if (!callbacks.transformParams) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.call("transformParams", [data])];
+                    case 1:
+                        data = _j.sent();
+                        _j.label = 2;
+                    case 2:
                         if (!_.isEmpty(data)) {
                             if (method.toLowerCase() === 'post') {
                                 if (!(data instanceof FormData)) {
@@ -90,23 +93,23 @@ function fetchRequest(config) {
                             }
                         }
                         this.toggleLoading(true);
-                        _j.label = 1;
-                    case 1:
-                        _j.trys.push([1, 6, , 7]);
+                        _j.label = 3;
+                    case 3:
+                        _j.trys.push([3, 10, , 11]);
                         return [4 /*yield*/, fetch(_url, requestOptions)];
-                    case 2:
+                    case 4:
                         res = _j.sent();
                         showProgress && this.toggleLoading(false);
-                        if (!(res.status === 200)) return [3 /*break*/, 4];
+                        if (!(res.status === 200)) return [3 /*break*/, 6];
                         return [4 /*yield*/, res.text()];
-                    case 3:
+                    case 5:
                         responseText = _j.sent();
-                        return [3 /*break*/, 5];
-                    case 4: throw {
+                        return [3 /*break*/, 7];
+                    case 6: throw {
                         error: res,
                         message: res.status + " : " + (res.statusText || 'Server Error')
                     };
-                    case 5:
+                    case 7:
                         response = void 0;
                         try {
                             response = JSON.parse(responseText);
@@ -114,9 +117,12 @@ function fetchRequest(config) {
                         catch (e) {
                             response = responseText;
                         }
-                        if (callbacks.transformResponse) {
-                            this.call("transformResponse", [response]);
-                        }
+                        if (!callbacks.transformResponse) return [3 /*break*/, 9];
+                        return [4 /*yield*/, this.call("transformResponse", [response])];
+                    case 8:
+                        response = _j.sent();
+                        _j.label = 9;
+                    case 9:
                         if (method.toLowerCase() === 'get') {
                             return [2 /*return*/, response];
                         }
@@ -125,15 +131,21 @@ function fetchRequest(config) {
                                 type: response.type,
                                 message: response.message
                             });
+                            if (redirectTo) {
+                                this.redirect(redirectTo);
+                            }
+                            else if (reloadPage) {
+                                this.reload();
+                            }
                             if (!checkDataType || this.call("checkSuccess", [response])) {
                                 return [2 /*return*/, response];
                             }
                             else {
-                                throw response;
+                                throw response || { message: "Empty Response" };
                             }
                         }
-                        return [3 /*break*/, 7];
-                    case 6:
+                        return [3 /*break*/, 11];
+                    case 10:
                         error_1 = _j.sent();
                         showProgress && this.toggleLoading(false);
                         notify && this.notify({
@@ -141,7 +153,7 @@ function fetchRequest(config) {
                             message: error_1.message
                         });
                         throw error_1;
-                    case 7: return [2 /*return*/];
+                    case 11: return [2 /*return*/];
                 }
             });
         });
