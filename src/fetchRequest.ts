@@ -2,7 +2,7 @@ import {CrudRequest, RequestOptions} from "@crud/core";
 import * as _ from "lodash";
 import URLSearchParams from "url-search-params";
 
-function fetchRequest(this: CrudRequest, config: RequestOptions) {
+export default function fetchRequest(this: CrudRequest, config: RequestOptions) {
 
     const {callbacks} = config;
 
@@ -117,5 +117,3 @@ function fetchRequest(this: CrudRequest, config: RequestOptions) {
 
     return config;
 }
-
-export default fetchRequest;

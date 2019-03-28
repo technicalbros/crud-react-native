@@ -14,11 +14,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var native_base_1 = require("native-base");
 function notifySnackbar(config) {
     config.callbacks.notify = function (_a) {
-        var message = _a.message, type = _a.type, options = _a.options;
+        var _b = _a === void 0 ? {} : _a, message = _b.message, type = _b.type, options = _b.options;
         return new Promise(function (resolve) {
             native_base_1.Toast.show(__assign({ buttonText: "Hide" }, options, { text: message, type: type === "success" ? "success" : type === "error" ? "danger" : type === "warning" ? "warning" : undefined, onClose: resolve }));
         });
     };
     return config;
 }
-exports.notifySnackbar = notifySnackbar;
+exports.default = notifySnackbar;

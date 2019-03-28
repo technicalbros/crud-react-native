@@ -570,8 +570,8 @@
     to-fast-properties "^2.0.0"
 
 "@crud/core@^2.1.0":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@crud/core/-/core-2.1.2.tgz#2b70e9e81394a8d667033eca593f5c7028a4dec2"
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@crud/core/-/core-2.1.4.tgz#4794b618117f76a0334d77c48eedec9d5e531964"
 
 "@react-native-community/cli@^1.2.1":
   version "1.5.1"
@@ -3452,8 +3452,8 @@ sax@~1.1.1:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
 
 scheduler@^0.13.6:
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.5.tgz#b7226625167041298af3b98088a9dbbf6d7733a8"
+  version "0.13.6"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

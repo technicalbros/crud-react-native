@@ -1,9 +1,9 @@
 import {Toast} from "native-base";
 import {CrudRequest, RequestOptions} from "@crud/core";
 
-export function notifySnackbar(this: CrudRequest, config: RequestOptions) {
+export default function notifySnackbar(this: CrudRequest, config: RequestOptions) {
 
-    config.callbacks.notify = ({message, type, options}) => new Promise(resolve => {
+    config.callbacks.notify = ({message, type, options} = {}) => new Promise(resolve => {
         Toast.show({
             buttonText: "Hide",
             ...options,

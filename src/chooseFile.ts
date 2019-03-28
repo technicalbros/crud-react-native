@@ -3,7 +3,7 @@ import ImagePicker from 'react-native-image-picker';
 
 export default function chooseFile(this: CrudRequest, $config: RequestOptions) {
 
-    $config.callbacks.chooseFile = options => new Promise<File>((resolve, reject) => {
+    $config.callbacks.chooseFile = (options = {}) => new Promise<File>((resolve, reject) => {
 
         const defaultOptions = {
             title: 'Select Image',

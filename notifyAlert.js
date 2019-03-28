@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_native_1 = require("react-native");
 function notifyAlert(config) {
     config.callbacks.notify = function (_a) {
-        var message = _a.message, type = _a.type, options = _a.options;
+        var _b = _a === void 0 ? {} : _a, message = _b.message, type = _b.type, options = _b.options;
         return new Promise(function (resolve) {
-            var buttons = options.buttons, otherOptions = __rest(options, ["buttons"]);
-            react_native_1.Alert.alert.apply(react_native_1.Alert, [type.toUpperCase(), message, buttons].concat(otherOptions));
+            var _a = options || {}, buttons = _a.buttons, otherOptions = __rest(_a, ["buttons"]);
+            react_native_1.Alert.alert.apply(react_native_1.Alert, [type && type.toUpperCase(), message, buttons].concat(otherOptions));
         });
     };
     return config;
