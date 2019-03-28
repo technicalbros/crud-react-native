@@ -104,7 +104,7 @@ function fetchRequest(config) {
                         return [3 /*break*/, 5];
                     case 4: throw {
                         error: res,
-                        message: res.status + " : " + res.statusText
+                        message: res.status + " : " + (res.statusText || 'Server Error')
                     };
                     case 5:
                         response = void 0;
