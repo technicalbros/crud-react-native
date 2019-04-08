@@ -40,7 +40,7 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
         let _url = baseUrl + prefix + url + suffix + extension;
 
         if (callbacks.transformParams) {
-            data = await this.call("transformParams", [data])
+            data = await this.call("transformParams", [data, ajaxOptions])
         }
 
         if (!_.isEmpty(data)) {

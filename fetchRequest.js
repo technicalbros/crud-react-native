@@ -71,7 +71,7 @@ function fetchRequest(config) {
                         requestOptions = __assign({}, ajaxOptions, { method: method, credentials: "include" });
                         _url = baseUrl + prefix + url + suffix + extension;
                         if (!callbacks.transformParams) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.call("transformParams", [data])];
+                        return [4 /*yield*/, this.call("transformParams", [data, ajaxOptions])];
                     case 1:
                         data = _j.sent();
                         _j.label = 2;
