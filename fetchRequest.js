@@ -71,7 +71,7 @@ function fetchRequest(config) {
                         requestOptions = __assign({}, ajaxOptions, { method: method, credentials: "include" });
                         _url = baseUrl + prefix + url + suffix + extension;
                         if (!callbacks.transformParams) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.call("transformParams", [data, ajaxOptions])];
+                        return [4 /*yield*/, this.call("transformParams", [data, requestOptions])];
                     case 1:
                         data = _j.sent();
                         _j.label = 2;
@@ -87,9 +87,9 @@ function fetchRequest(config) {
                                 _url += "?" + params;
                             }
                             if (requestOptions.body instanceof FormData) {
-                                requestOptions.headers = {
-                                    'Content-Type': 'multipart/form-data',
-                                };
+                                if (!requestOptions.headers)
+                                    requestOptions.headers = {};
+                                requestOptions.headers['Content-Type'] = 'multipart/form-data';
                             }
                         }
                         this.toggleLoading(true);

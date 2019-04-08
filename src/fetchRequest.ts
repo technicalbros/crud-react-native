@@ -40,7 +40,7 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
         let _url = baseUrl + prefix + url + suffix + extension;
 
         if (callbacks.transformParams) {
-            data = await this.call("transformParams", [data, ajaxOptions])
+            data = await this.call("transformParams", [data, requestOptions])
         }
 
         if (!_.isEmpty(data)) {
@@ -54,9 +54,9 @@ export default function fetchRequest(this: CrudRequest, config: RequestOptions) 
             }
 
             if (requestOptions.body instanceof FormData) {
-                requestOptions.headers = {
-                    'Content-Type': 'multipart/form-data',
-                }
+                if (!requestOptions.headers)
+                    requestOptions.headers = {}
+                requestOptions.headers['Content-Type'] = 'multipart/form-data'
             }
         }
 
