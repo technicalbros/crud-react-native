@@ -3,20 +3,20 @@ import {Alert} from "react-native";
 
 export default function notifyAlert(config: RequestOptions) {
 
-    config.callbacks.confirm = async ({title = "Are you sure?", textContent = "This may not be reversible", options} = {}) => {
+    config.callbacks.confirm = async ({title = "Are you sure?", textContent = "This may not be reversible", confirmButtonText = "Yes I'm", cancelButtonText = "No I'm not", options} = {}) => {
         return new Promise((resolve, reject) => {
             Alert.alert(title, textContent, [
                 {
-                    text: "Yes I'm",
+                    text: confirmButtonText,
                     onPress: resolve
                 },
                 {
-                    text: "No I'm not",
+                    text: cancelButtonText,
                     onPress: reject
                 }
             ], {...options, cancelable: true})
         })
-    }
+    };
 
     return config;
 }

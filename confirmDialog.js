@@ -50,17 +50,17 @@ var react_native_1 = require("react-native");
 function notifyAlert(config) {
     var _this = this;
     config.callbacks.confirm = function (_a) {
-        var _b = _a === void 0 ? {} : _a, _c = _b.title, title = _c === void 0 ? "Are you sure?" : _c, _d = _b.textContent, textContent = _d === void 0 ? "This may not be reversible" : _d, options = _b.options;
+        var _b = _a === void 0 ? {} : _a, _c = _b.title, title = _c === void 0 ? "Are you sure?" : _c, _d = _b.textContent, textContent = _d === void 0 ? "This may not be reversible" : _d, _e = _b.confirmButtonText, confirmButtonText = _e === void 0 ? "Yes I'm" : _e, _f = _b.cancelButtonText, cancelButtonText = _f === void 0 ? "No I'm not" : _f, options = _b.options;
         return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_e) {
+            return __generator(this, function (_g) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
                         react_native_1.Alert.alert(title, textContent, [
                             {
-                                text: "Yes I'm",
+                                text: confirmButtonText,
                                 onPress: resolve
                             },
                             {
-                                text: "No I'm not",
+                                text: cancelButtonText,
                                 onPress: reject
                             }
                         ], __assign({}, options, { cancelable: true }));
